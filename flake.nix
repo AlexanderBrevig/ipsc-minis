@@ -12,7 +12,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         render = pkgs.writeShellApplication {
           name = "render";
-          runtimeInputs = [ pkgs.openscad pkgs.xvfb-run ];
+          runtimeInputs = [ pkgs.openscad ];
           text = ''exec ./render.sh "$@"'';
         };
       in
