@@ -18,7 +18,7 @@ Scaled 3D-printable targets following IPSC handgun target dimensions, for dry-fi
 
 ## Build and release
 - `nix develop` gives OpenSCAD; `nix run .#render [-- 4 5 6]` runs `render.sh` → `stl/` + `preview.png`.
-- `stl/` is gitignored: STLs are built by GitHub Actions and attached to releases so they always match the `.scad` of that tag. `preview.png` is committed for the README; regenerate it when the geometry changes.
+- `stl/` is gitignored: STLs are built by GitHub Actions and attached to releases so they always match the `.scad` of that tag. `preview.png` is committed for the README and rendered locally only (CI sets `NO_PREVIEW=1`: OpenSCAD image export needs OpenGL, which fails on the runner even under Xvfb); regenerate it when the geometry changes.
 - Releases via release-please (`release-type: simple`): use **Conventional Commits** (`feat:`, `fix:`, `docs:`…). `ci.yml` renders on every push/PR (artifact); `release.yml` renders and uploads to the release when release-please creates one.
 - Repo setting needed: Actions → "Allow GitHub Actions to create and approve pull requests".
 
