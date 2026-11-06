@@ -10,4 +10,9 @@ for n in ${scales[@]}; do
   openscad -q -D "scale_n=$n" -o "stl/target_1-$n.stl" targets.scad
   openscad -q -D "scale_n=$n" -D 'part="stand"' -o "stl/stand_1-$n.stl" targets.scad
 done
-openscad -q -D 'part="assembly"' --camera=0,0,60,60,0,35,420 --imgsize=600,600 -o preview.png targets.scad
+# Image export needs a display; use a virtual one when headless (CI).
+wrap=()
+if [ -z "${DISPLAY:-}" ] && [ -z "${WAYLAND_DISPLAY:-}" ] && command -v xvfb-run >/dev/null; then
+  wrap=(xvfb-run -a)
+fi
+"${wrap[@]}" openscad -q -D 'part="assembly"' --camera=0,0,60,60,0,35,420 --imgsize=600,600 -o preview.png targets.scad
